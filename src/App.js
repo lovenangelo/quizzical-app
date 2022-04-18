@@ -15,7 +15,7 @@ export default function App() {
     if (!isFetched) {
       fetchItems();
     }
-    setFinalItems(questionObject)
+    setFinalItems(questionObject);
   }, [isFetched])
 
   const fetchItems = async () => {
@@ -61,11 +61,33 @@ export default function App() {
     return array;
   }
 
+  const changeButtonColor = (buttonID, itemID) => {
+    setFinalItems((prevItems) => {
+      let itemIndex = 0;
+      let buttonIndex = 0;
+      for (const item of prevItems) {
+        if (item.id === itemID) {
+          item.answerOptions.forEach(option => {
+            if (option.id === buttonID) {
+              prevItems[itemIndex].answerOptions[buttonIndex].isChosen = true;
+            }
+            else {
+              option.isChosen = false;
+            }
+            buttonIndex++;
+          });
+        }
+        itemIndex++;
+      }
+      return [...prevItems]
+    })
+  }
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Welcome />} />
-        <Route path='quiz' element={<Quiz items={finalItems} />} />
+        <Route path='quiz' element={<Quiz items={finalItems} changeButtonColor={changeButtonColor} />} />
       </Routes>
     </BrowserRouter>
   )

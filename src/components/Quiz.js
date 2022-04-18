@@ -8,21 +8,27 @@ export default function Quiz(props) {
         return nanoid()
     }
 
-    function createQuestions() {
+    const changeButtonColor = (buttonID, itemID) => {
+        props.changeButtonColor(buttonID, itemID)
+    }
 
-        const questionComponents = questions.map(questions => {
+    function createQuestions() {
+        const items = questions.map(questions => {
             return (
                 <div className='questions--container' key={generateKey()}>
                     <h1 className='questions--header' key={questions.id}>{questions.question}</h1>
                     {
                         questions.answerOptions.map(item => {
-                            return <button className='choice-button' key={item.id}>{item.value}</button>
+                            const buttonColor = {
+                                backgroundColor: item.isChosen ? "#D6DBF5" : "transparent"
+                            }
+                            return <button onClick={() => changeButtonColor(item.id, questions.id)} style={buttonColor} className='choice-button' key={item.id}>{item.value}</button>
                         })
                     }
                 </div>
             )
         })
-        return questionComponents
+        return items
     }
 
     const questionList = createQuestions();
