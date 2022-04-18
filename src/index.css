@@ -4,7 +4,7 @@
 
 body {
   margin: 0;
-  background: url("../public/images/background.svg") no-repeat center center fixed;
+  background: url("./images/background.svg") no-repeat center center fixed;
   background-size: cover;
   font-family: 'Karla', sans-serif;
 }
@@ -73,10 +73,7 @@ body {
   ;
 }
 
-.button-1,
-.button-2,
-.button-3,
-.button-4 {
+.choice-button {
   padding: 10px 25px;
   margin: 12px 12px 12px 0px;
   width: auto;
@@ -87,7 +84,7 @@ body {
   color: #293264;
   border-radius: 12px;
   border: 1.5px solid #4D5B9E;
-  /* background-color: transparent; */
+  background-color: transparent;
   /* background-color: #D6DBF5; */
   cursor: pointer;
 }
