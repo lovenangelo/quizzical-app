@@ -70,7 +70,6 @@ body {
 
 .questions--header {
   font-size: 30px;
-  ;
 }
 
 .choice-button {
@@ -89,10 +88,42 @@ body {
   cursor: pointer;
 }
 
-.check-button {
+.choice-button:hover {
+  background-color: #D6DBF5;
+}
+
+.footer--check-button {
   margin: 25px 0px;
   padding: 15px 20px;
   font-size: 20px;
   width: auto;
   align-self: center;
+  background: #4D5B9E;
+  border-radius: 10px;
+  outline: 0;
+  border: 0;
+  color: white;
+  justify-self: center;
+  cursor: pointer;
+}
+
+.footer--play-again {
+  margin-left: 20px;
+  padding: 15px 20px;
+  font-size: 20px;
+  width: auto;
+  align-self: center;
+  background: #4D5B9E;
+  border-radius: 10px;
+  outline: 0;
+  border: 0;
+  color: white;
+  justify-self: center;
+  cursor: pointer;
+}
+
+.end-quiz {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

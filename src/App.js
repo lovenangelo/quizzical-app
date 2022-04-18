@@ -10,6 +10,8 @@ export default function App() {
   const [items, setItems] = useState([]);
   const [isFetched, setIsFetched] = useState(false);
   const [finalItems, setFinalItems] = useState([])
+  const [isFinish, setIsFinish] = useState(false)
+  const [score, setScore] = useState(0)
 
   useEffect(() => {
     if (!isFetched) {
@@ -37,7 +39,7 @@ export default function App() {
         item.incorrect_answers[1],
         item.incorrect_answers[2],
         item.correct_answer,
-        item.question,
+        item.question
       ]
     })
   }
@@ -48,14 +50,14 @@ export default function App() {
       let newRand = shuffleChoices();
       return {
         id: nanoid(),
+        correct_answer: item[3],
         question: item[4],
         answerOptions: [
           { value: item[newRand[0]], isChosen: false, id: nanoid() },
           { value: item[newRand[1]], isChosen: false, id: nanoid() },
           { value: item[newRand[2]], isChosen: false, id: nanoid() },
-          { value: item[newRand[3]], isChosen: false, id: nanoid() }
+          { value: item[newRand[3]], isChosen: false, id: nanoid() },
         ]
-
       }
     })
     return array;
@@ -65,21 +67,42 @@ export default function App() {
     setFinalItems((prevItems) => {
       let itemIndex = 0;
       let buttonIndex = 0;
-      for (const item of prevItems) {
+
+      prevItems.forEach(item => {
         if (item.id === itemID) {
           item.answerOptions.forEach(option => {
-            if (option.id === buttonID) {
+            if (option.id === buttonID)
               prevItems[itemIndex].answerOptions[buttonIndex].isChosen = true;
-            }
-            else {
+            else
               option.isChosen = false;
-            }
             buttonIndex++;
           });
         }
         itemIndex++;
-      }
+      })
       return [...prevItems]
+    })
+  }
+
+  const isFinishChangeStyle = () => {
+    totalScore()
+    setIsFinish(true)
+  }
+
+  const resetQuiz = () => {
+    setIsFetched(false);
+    setIsFinish(false);
+    setScore(0);
+    setFinalItems([]);
+  }
+
+  function totalScore() {
+    finalItems.forEach(item => {
+      item.answerOptions.forEach(option => {
+        if (option.isChosen)
+          if (option.value === item.correct_answer) setScore(prev => prev = prev + 1)
+      }
+      )
     })
   }
 
@@ -87,7 +110,11 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Welcome />} />
-        <Route path='quiz' element={<Quiz items={finalItems} changeButtonColor={changeButtonColor} />} />
+        <Route path='quiz' element={
+          <Quiz countCorrect={totalScore}
+            score={score} playAgain={resetQuiz} isFetched={isFetched}
+            isFinishChangeStyle={isFinishChangeStyle} isFinish={isFinish}
+            items={finalItems} changeButtonColor={changeButtonColor} />} />
       </Routes>
     </BrowserRouter>
   )
