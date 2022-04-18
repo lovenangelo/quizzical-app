@@ -111,9 +111,8 @@ export default function App() {
       <Routes>
         <Route path='/' element={<Welcome />} />
         <Route path='quiz' element={
-          <Quiz countCorrect={totalScore}
-            score={score} playAgain={resetQuiz} isFetched={isFetched}
-            isFinishChangeStyle={isFinishChangeStyle} isFinish={isFinish}
+          <Quiz countCorrect={totalScore} score={score} playAgain={resetQuiz}
+            isFetched={isFetched} isFinishChangeStyle={isFinishChangeStyle} isFinish={isFinish}
             items={finalItems} changeButtonColor={changeButtonColor} />} />
       </Routes>
     </BrowserRouter>
